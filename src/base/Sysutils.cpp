@@ -480,6 +480,10 @@ TTimeStamp DateTimeToTimeStamp(const TDateTime & DateTime)
   double intpart{0.0};
   const double fractpart = modf(DateTime, &intpart);
   Result.Time = nb::ToInt32(fractpart * MSecsPerDay + 0.5);
+  if (Result.Time >= 86400000)
+  {
+    Result.Time = 86400000 - 1;
+  }
   Result.Date = nb::ToInt32(intpart + DateDelta);
   return Result;
 }
